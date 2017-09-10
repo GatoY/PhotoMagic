@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import math
 
+
 def resize (img,height=None,width=None): #change the height, width of pics
     if height==None and width==None:
         return img
@@ -61,4 +62,8 @@ def rotate(img,degree):
     col,row=img.shape[:2]
     rot_mat=cv2.getRotationMatrix2D((row/2,col/2),degree,1)
     img=cv2.warpAffine(img,rot_mat,(row,col))
+    return img
+#make threshold
+def thresh(img,pixel):
+    ret,thresh=cv2.threshold(img,pixel,255,cv2.THRESH_BINARY)
     return img
