@@ -17,7 +17,7 @@ def encrypt(img,s):
     img.itemset((0,0,0),count/255/255%255)
     img.itemset((0,0,1),count/255%255)
     img.itemset((0,0,2),count%255)
-    record_addr=[[]]
+    record_addr=[]
     for i in xrange(len(s)):
 	pixel_x=random.randint(1,img.shape[0])
 	pixel_y=random.randint(1,img.shape[1])
