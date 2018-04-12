@@ -2,12 +2,9 @@ import cv2
 import numpy as np
 import math
 import argparse
-parser=argparse.ArgumentParser()
-parser.add_argument('filename')
-args=parser.parse_args()
+import time
 
-
-def fishEye(imgName):
+def fishEye(imgName, outputfile):
     oriImg=cv2.imread(imgName)
     size=oriImg.shape
     fromX=size[0]
@@ -19,7 +16,6 @@ def fishEye(imgName):
     b=0
     c=0
     d=0
-    print fromX
     for i in xrange(2*fromX):
         for j in xrange(2*fromX):
             p=int(math.sqrt((i-fromX)*(i-fromX)+(j-fromX)*(j-fromX)))
@@ -45,8 +41,21 @@ def fishEye(imgName):
 
 #newImg=cv2.resize(newImg,(fromX,fromX),interpolation=cv2.INTER_CUBIC)
     #newImg=cv2.GaussianBlur(newImg,(5,5),0)
-    cv2.imwrite(imgName[:-5]+'Rota.png',newImg)
-    print a,b,c,d
-#cv2.imshow('image',newImg)
-#cv2.waitKey()
-fishEye(args.filename)
+    cv2.imwrite(outputfile,newImg)
+
+def main(filepath,outputfile):
+    fishEye(filepath,outputfile)
+    end_time = time.time()
+    print('running time is ')
+    print(str(end_time-start_time)+'s')
+if __name__ == "__main__":
+    parser =argparse.ArgumentParser()
+    parser.add_argument('-s','--sourcefile')
+    parser.add_argument('-o','--outputfile')
+    args=parser.parse_args()
+    
+    filepath=args.sourcefile
+    outputfile=args.outputfile
+    start_time = time.time()
+    main(filepath,outputfile)
+#imgName='test.jpeg'

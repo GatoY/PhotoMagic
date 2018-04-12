@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import math
+import argparse
+
 def fishEye(imgName):
     oriImg=cv2.imread(imgName)
     size=oriImg.shape
@@ -26,8 +28,19 @@ def fishEye(imgName):
                 newImg[x][y]=(oriImg[fromX-p-1][size[1]-i-1]+newImg[x][y])/2
     newImg=cv2.resize(newImg,(fromX,fromX),interpolation=cv2.INTER_CUBIC)
     newImg=cv2.GaussianBlur(newImg,(5,5),0)
-    cv2.imwrite('Ep%y%m.png',newImg)
-#cv2.imshow('image',newImg)
-#cv2.waitKey()
-imgName='test.jpeg'
-fishEye(imgName)
+    cv2.imwrite(outputfile),newImg)
+
+def main(filepath,outputfile):
+    fishEye(filepath,outputfile)
+
+if __name__ == "__main__":
+    parser =argparse.ArgumentParser()
+    parser.add_argument('-s','--sourcefile')
+    parser.add_argument('-o','--outputfile')
+    args=parser.parse_args()
+
+    filepath=args.sourcefile
+    outputfile=args.outputfile
+    main(filepath,outputfile)
+#imgName='test.jpeg'
+
